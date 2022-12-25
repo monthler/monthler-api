@@ -23,9 +23,13 @@ public class TestController {
         t2.put("name", "무지");
         t2.put("age", "31");
 
+        Map<String, String> t3 = new HashMap<>();
+        t3.put("name", "git merge 자동 Jenkins 빌드 테스트");
+
         List<Object> list = new ArrayList<>();
         list.add(t1);
         list.add(t2);
+        list.add(t3);
 
         Map<String, List> result = new HashMap<>();
         result.put("userData", list);
