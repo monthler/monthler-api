@@ -24,7 +24,7 @@ public class TestController {
         t2.put("age", "31");
 
         Map<String, String> t3 = new HashMap<>();
-        t3.put("name", "git merge 자동 Jenkins 빌드 테스트 + Pull request 자동 반영 테스트");
+        t3.put("name", "git merge 자동 Jenkins 빌드 테스트 + Pull request 자동 반영 테스트 + 브랜치명 변경");
 
         List<Object> list = new ArrayList<>();
         list.add(t1);
