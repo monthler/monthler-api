@@ -1,4 +1,4 @@
-package com.example.monthlerapi.modules.govnotice.entity;
+package com.example.monthlerapi.modules.govnotice.domain;
 
 import com.example.monthlerapi.common.entity.BaseTimeEntity;
 import com.example.monthlerapi.modules.govnotice.dto.GovNoticeCreateRequestDto;
