@@ -14,9 +14,9 @@ public class Applicant {
     @JoinColumn(name = "noticeId")
     private Notice notice;
 
-    @ManyToOne
-    @JoinColumn(name = "memberId")
-    private Member member;
+//    @ManyToOne
+//    @JoinColumn(name = "memberId")
+//    private Member member;
 
     @Temporal(TemporalType.TIMESTAMP)
     private Date applyDate;

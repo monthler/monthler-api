@@ -1,9 +1,11 @@
 package com.example.monthlerapi.modules.govnotice.domain;
 
 import com.example.monthlerapi.common.entity.BaseTimeEntity;
-import com.example.monthlerapi.modules.govnotice.dto.GovNoticeCreateRequestDto;
+import com.example.monthlerapi.modules.govnotice.dto.GovNoticeRequestDto;
+import com.example.monthlerapi.modules.member.domain.Member;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import lombok.ToString;
 
 import javax.persistence.*;
@@ -12,6 +14,7 @@ import java.time.LocalDateTime;
 
 @Entity
 @Getter
+@Setter
 @ToString
 @NoArgsConstructor
 public class GovNotice extends BaseTimeEntity {
@@ -23,7 +26,9 @@ public class GovNotice extends BaseTimeEntity {
 //    @JoinColumn(name = "adminId")
 //    private Admin admin;
 
-    private Long memberId;
+    @ManyToOne
+    @JoinColumn(name = "member_id")
+    private Member member;
 
 //    @OneToMany(mappedBy = "applicantId")
 //    private List<Applicant> applicants = new ArrayList<>();
@@ -65,8 +70,8 @@ public class GovNotice extends BaseTimeEntity {
     private String detailDesc; // 상세 설명
 
 
-    public GovNotice(Long memberId, String title, String region, String city, LocalDate stayStDt, LocalDate stayEdDt, Integer minNight, Integer maxNight, Integer recruitmentTeam, Integer minPeople, Integer maxPeople, Integer supportFund, LocalDate recruitmentStDt, LocalDate recruitmentEdDt, LocalDateTime releaseDt, String withChildYn, String email, Integer phoneNumber, String noticeLink, String refFile, String mainDesc, String detailDesc) {
-        this.memberId = memberId;
+    public GovNotice(Member member, String title, String region, String city, LocalDate stayStDt, LocalDate stayEdDt, Integer minNight, Integer maxNight, Integer recruitmentTeam, Integer minPeople, Integer maxPeople, Integer supportFund, LocalDate recruitmentStDt, LocalDate recruitmentEdDt, LocalDateTime releaseDt, String withChildYn, String email, Integer phoneNumber, String noticeLink, String refFile, String mainDesc, String detailDesc) {
+        this.member = member;
         this.title = title;
         this.region = region;
         this.city = city;
@@ -90,7 +95,7 @@ public class GovNotice extends BaseTimeEntity {
         this.detailDesc = detailDesc;
     }
 
-    public static GovNotice of(GovNoticeCreateRequestDto dto) {
-        return new GovNotice(dto.getMemberId(), dto.getTitle(), dto.getRegion(), dto.getCity(), dto.getStayStDt(), dto.getStayEdDt(), dto.getMinNight(), dto.getMaxNight(), dto.getRecruitmentTeam(), dto.getMinPeople(), dto.getMaxPeople(), dto.getSupportFund(), dto.getRecruitmentEdDt(), dto.getRecruitmentStDt(), dto.getReleaseDt(), dto.getWithChildYn(), dto.getEmail(), dto.getPhoneNumber(), dto.getNoticeLink(), dto.getRefFile(), dto.getMainDesc(), dto.getDetailDesc());
+    public static GovNotice of(GovNoticeRequestDto dto, Member member) {
+        return new GovNotice(member, dto.getTitle(), dto.getRegion(), dto.getCity(), dto.getStayStDt(), dto.getStayEdDt(), dto.getMinNight(), dto.getMaxNight(), dto.getRecruitmentTeam(), dto.getMinPeople(), dto.getMaxPeople(), dto.getSupportFund(), dto.getRecruitmentEdDt(), dto.getRecruitmentStDt(), dto.getReleaseDt(), dto.getWithChildYn(), dto.getEmail(), dto.getPhoneNumber(), dto.getNoticeLink(), dto.getRefFile(), dto.getMainDesc(), dto.getDetailDesc());
     }
 }

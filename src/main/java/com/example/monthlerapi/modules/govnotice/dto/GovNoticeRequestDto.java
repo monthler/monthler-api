@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
-public class GovNoticeCreateRequestDto {
+public class GovNoticeRequestDto {
     private Long memberId;
     private String title;
     private String region;
