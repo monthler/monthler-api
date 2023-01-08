@@ -1,8 +1,10 @@
 package com.example.monthlerapi.modules.govnotice.domain;
 
 import com.example.monthlerapi.common.entity.BaseTimeEntity;
+import com.example.monthlerapi.modules.category.domain.Category;
 import com.example.monthlerapi.modules.govnotice.dto.GovNoticeRequestDto;
 import com.example.monthlerapi.modules.member.domain.Member;
+import com.example.monthlerapi.modules.theme.domain.Theme;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -11,11 +13,14 @@ import lombok.ToString;
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
+
+import static javax.persistence.FetchType.LAZY;
 
 @Entity
 @Getter
 @Setter
-@ToString
 @NoArgsConstructor
 public class GovNotice extends BaseTimeEntity {
     @Id
@@ -26,15 +31,16 @@ public class GovNotice extends BaseTimeEntity {
 //    @JoinColumn(name = "adminId")
 //    private Admin admin;
 
-    @ManyToOne
+    @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "member_id")
     private Member member;
 
-//    @OneToMany(mappedBy = "applicantId")
+    //    @OneToMany(mappedBy = "applicantId")
 //    private List<Applicant> applicants = new ArrayList<>();
 //
-//    @OneToMany(mappedBy = "themeId")
-//    private List<Theme> themeList = new ArrayList<>();
+    @OneToMany(mappedBy = "notice", cascade = CascadeType.ALL)
+    private List<Theme> themeList = new ArrayList<>();
+
 
     private String title;
     private String region;
@@ -56,11 +62,11 @@ public class GovNotice extends BaseTimeEntity {
     private LocalDate recruitmentStDt; // 모집 기간 시작일
     private LocalDate recruitmentEdDt; // 모집 기간 종료일
 
-    private LocalDateTime releaseDt; // 선정 발표일
+    private LocalDate releaseDt; // 선정 발표일
 
     private String withChildYn; // 아이 동반 여부 (Y/N)
     private String email;
-    private Integer phoneNumber;
+    private String phoneNumber;
     private String noticeLink; // 모집공고 링크
     private String refFile; // 관련 파일 id
 
@@ -69,33 +75,15 @@ public class GovNotice extends BaseTimeEntity {
     @Column(columnDefinition = "TEXT")
     private String detailDesc; // 상세 설명
 
-
-    public GovNotice(Member member, String title, String region, String city, LocalDate stayStDt, LocalDate stayEdDt, Integer minNight, Integer maxNight, Integer recruitmentTeam, Integer minPeople, Integer maxPeople, Integer supportFund, LocalDate recruitmentStDt, LocalDate recruitmentEdDt, LocalDateTime releaseDt, String withChildYn, String email, Integer phoneNumber, String noticeLink, String refFile, String mainDesc, String detailDesc) {
-        this.member = member;
-        this.title = title;
-        this.region = region;
-        this.city = city;
-        this.stayStDt = stayStDt;
-        this.stayEdDt = stayEdDt;
-        this.minNight = minNight;
-        this.maxNight = maxNight;
-        this.recruitmentTeam = recruitmentTeam;
-        this.minPeople = minPeople;
-        this.maxPeople = maxPeople;
-        this.supportFund = supportFund;
-        this.recruitmentStDt = recruitmentStDt;
-        this.recruitmentEdDt = recruitmentEdDt;
-        this.releaseDt = releaseDt;
-        this.withChildYn = withChildYn;
-        this.email = email;
-        this.phoneNumber = phoneNumber;
-        this.noticeLink = noticeLink;
-        this.refFile = refFile;
-        this.mainDesc = mainDesc;
-        this.detailDesc = detailDesc;
-    }
-
-    public static GovNotice of(GovNoticeRequestDto dto, Member member) {
-        return new GovNotice(member, dto.getTitle(), dto.getRegion(), dto.getCity(), dto.getStayStDt(), dto.getStayEdDt(), dto.getMinNight(), dto.getMaxNight(), dto.getRecruitmentTeam(), dto.getMinPeople(), dto.getMaxPeople(), dto.getSupportFund(), dto.getRecruitmentEdDt(), dto.getRecruitmentStDt(), dto.getReleaseDt(), dto.getWithChildYn(), dto.getEmail(), dto.getPhoneNumber(), dto.getNoticeLink(), dto.getRefFile(), dto.getMainDesc(), dto.getDetailDesc());
+    public void settingThemeList(List<String> themeStringList, List<Category> categoryList) {
+        for(int i=0; i<categoryList.size(); i++){
+            if(themeStringList.contains(categoryList.get(i).getSubject())){
+                Theme theme = Theme.builder()
+                        .notice(this)
+                        .category(categoryList.get(i))
+                        .build();
+                this.themeList.add(theme);
+            }
+        }
     }
 }
