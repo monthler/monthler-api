@@ -2,20 +2,18 @@ package com.example.monthlerapi.modules.govnotice.domain;
 
 import com.example.monthlerapi.common.entity.BaseTimeEntity;
 import com.example.monthlerapi.modules.category.domain.Category;
-import com.example.monthlerapi.modules.govnotice.dto.GovNoticeRequestDto;
 import com.example.monthlerapi.modules.member.domain.Member;
 import com.example.monthlerapi.modules.theme.domain.Theme;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.ToString;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+import static javax.persistence.FetchType.EAGER;
 import static javax.persistence.FetchType.LAZY;
 
 @Entity
@@ -31,14 +29,14 @@ public class GovNotice extends BaseTimeEntity {
 //    @JoinColumn(name = "adminId")
 //    private Admin admin;
 
-    @ManyToOne(fetch = LAZY)
+    @ManyToOne(fetch = EAGER)
     @JoinColumn(name = "member_id")
     private Member member;
 
     //    @OneToMany(mappedBy = "applicantId")
 //    private List<Applicant> applicants = new ArrayList<>();
 //
-    @OneToMany(mappedBy = "notice", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "notice", cascade = CascadeType.ALL, fetch = EAGER)
     private List<Theme> themeList = new ArrayList<>();
 
 

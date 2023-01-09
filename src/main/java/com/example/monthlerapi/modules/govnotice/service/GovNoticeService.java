@@ -11,7 +11,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -22,10 +21,8 @@ public class GovNoticeService {
     private final ModelMapper modelMapper;
 
     @Transactional
-    public Optional<GovNotice> getGovNotice(Long govNoticeId){
-        GovNotice test = govNoticeRepository.findById(govNoticeId).get();
-        System.out.println(test.getCity());
-        return govNoticeRepository.findById(govNoticeId);
+    public GovNotice getGovNotice(Long govNoticeId){
+        return govNoticeRepository.findById(govNoticeId).get();
     }
 
     @Transactional

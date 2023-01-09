@@ -22,6 +22,6 @@ public class Admin {
     private Integer passwd;
     private String name;
 
-    @OneToMany(mappedBy = "admin")
-    List<Notice> notices = new ArrayList<>();
+//    @OneToMany(mappedBy = "admin")
+//    List<Notice> notices = new ArrayList<>();
 }

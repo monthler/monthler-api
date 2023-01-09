@@ -15,10 +15,9 @@ import java.util.HashMap;
 public class GovNoticeController {
     private final GovNoticeService govNoticeService;
 
-    @GetMapping("/gov-notice/{govNoticeId}")
-    public GovNotice govNoticeDetail(@PathVariable Long govNoticeId){
-        // model.addAttribute("govNotice", govNoticeService.getGovNotice(govNoticeId).get());
-        return govNoticeService.getGovNotice(govNoticeId).get();
+    @GetMapping("/api/gov-notice/{govNoticeId}")
+    public ResponseEntity<?> govNoticeDetail(@PathVariable Long govNoticeId){
+        return ResponseEntity.ok(govNoticeService.getGovNotice(govNoticeId));
     }
 
 }

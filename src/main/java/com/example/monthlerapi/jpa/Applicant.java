@@ -10,9 +10,9 @@ public class Applicant {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long applicantId;
 
-    @ManyToOne
-    @JoinColumn(name = "noticeId")
-    private Notice notice;
+//    @ManyToOne
+//    @JoinColumn(name = "noticeId")
+//    private Notice notice;
 
 //    @ManyToOne
 //    @JoinColumn(name = "memberId")
