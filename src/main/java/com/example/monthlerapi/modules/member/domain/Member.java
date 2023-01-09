@@ -1,6 +1,7 @@
 package com.example.monthlerapi.modules.member.domain;
 
 import com.example.monthlerapi.common.entity.BaseTimeEntity;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
@@ -21,6 +22,7 @@ public class Member extends BaseTimeEntity {
     private String email;
 
     @Column(nullable = false)
+    @JsonIgnore
     private Integer password;
 
     @Column(nullable = false)
