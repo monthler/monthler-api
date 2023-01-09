@@ -17,7 +17,9 @@ public class GovNoticeController {
 
     @GetMapping("/api/gov-notice/{govNoticeId}")
     public ResponseEntity<?> govNoticeDetail(@PathVariable Long govNoticeId){
-        return ResponseEntity.ok(govNoticeService.getGovNotice(govNoticeId));
+        HashMap<String,Object> result = new HashMap<>();
+        result.put("data", govNoticeService.getGovNotice(govNoticeId));
+        return ResponseEntity.ok(result);
     }
 
 }
