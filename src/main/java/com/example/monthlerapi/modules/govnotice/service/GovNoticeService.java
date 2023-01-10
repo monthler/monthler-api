@@ -22,6 +22,8 @@ public class GovNoticeService {
 
     @Transactional
     public GovNotice getGovNotice(Long govNoticeId){
+        // GovNotice govNotice = govNoticeRepository.findById(govNoticeId).get();
+        // List<String> themeStringList = govNotice.retrieveThemeStringList(govNotice);
         return govNoticeRepository.findById(govNoticeId).get();
     }
 

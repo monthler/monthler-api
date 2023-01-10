@@ -36,9 +36,12 @@ public class GovNotice extends BaseTimeEntity {
     //    @OneToMany(mappedBy = "applicantId")
 //    private List<Applicant> applicants = new ArrayList<>();
 //
-    @OneToMany(mappedBy = "notice", cascade = CascadeType.ALL, fetch = EAGER)
+    // OneToMany는 기본적으로 LAZY
+    // GovNotice에서 thmeeList를 호출하는 시점에서는 LAZY여도 상관이 없으나
+    // Theme 객체 안의 Category는 ManyToOne이라 강의에선 모두 LAZY로 셋팅할것을 얘기하였으나
+    // dto를 사용하지 않을 경우 Theme 시점에 Category가 존재해야하기 떄문에 eager로 사용해야한다.
+    @OneToMany(mappedBy = "notice", cascade = CascadeType.ALL)
     private List<Theme> themeList = new ArrayList<>();
-
 
     private String title;
     private String region;
@@ -73,15 +76,13 @@ public class GovNotice extends BaseTimeEntity {
     @Column(columnDefinition = "TEXT")
     private String detailDesc; // 상세 설명
 
-    public void settingThemeList(List<String> themeStringList, List<Category> categoryList) {
-        for(int i=0; i<categoryList.size(); i++){
-            if(themeStringList.contains(categoryList.get(i).getSubject())){
-                Theme theme = Theme.builder()
-                        .notice(this)
-                        .category(categoryList.get(i))
-                        .build();
-                this.themeList.add(theme);
-            }
+    public List<String> retrieveThemeStringList(GovNotice govNotice){
+        List<Theme> themeList = govNotice.getThemeList();
+        List<String> themeStringList = new ArrayList<>();
+        for(int i=0; i<themeList.size(); i++){
+            themeStringList.add(themeList.get(i).getCategory().getSubject());
         }
+        return themeStringList;
     }
+
 }
