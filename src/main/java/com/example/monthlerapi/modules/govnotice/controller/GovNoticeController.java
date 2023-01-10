@@ -20,7 +20,6 @@ public class GovNoticeController {
     public ResponseEntity<?> govNoticeDetail(@PathVariable Long govNoticeId){
         HashMap<String,Object> result = new HashMap<>();
         result.put("data", govNoticeService.getGovNotice(govNoticeId));
-
         // dto로 바꿔야겠다.
         return ResponseEntity.ok(result);
     }
@@ -28,7 +27,7 @@ public class GovNoticeController {
     @GetMapping("/gov-notices")
     public ResponseEntity<?> govNotices(){
         HashMap<String,Object> result = new HashMap<>();
-        result.put("data", govNoticeService.getGovNoticeList());
+        result.put("dataList", govNoticeService.getGovNoticeList());
         return ResponseEntity.ok(result);
     }
 

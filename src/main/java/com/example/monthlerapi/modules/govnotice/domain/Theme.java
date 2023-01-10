@@ -1,4 +1,4 @@
-package com.example.monthlerapi.modules.theme.domain;
+package com.example.monthlerapi.modules.govnotice.domain;
 
 import com.example.monthlerapi.modules.category.domain.Category;
 import com.example.monthlerapi.modules.govnotice.domain.GovNotice;

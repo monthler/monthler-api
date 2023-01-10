@@ -1,11 +1,8 @@
 package com.example.monthlerapi.modules.category.domain;
 
-import com.example.monthlerapi.modules.theme.domain.Theme;
 import lombok.Data;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
 @Data

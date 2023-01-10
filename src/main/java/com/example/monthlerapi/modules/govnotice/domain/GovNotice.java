@@ -1,9 +1,7 @@
 package com.example.monthlerapi.modules.govnotice.domain;
 
 import com.example.monthlerapi.common.entity.BaseTimeEntity;
-import com.example.monthlerapi.modules.category.domain.Category;
 import com.example.monthlerapi.modules.member.domain.Member;
-import com.example.monthlerapi.modules.theme.domain.Theme;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -14,7 +12,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static javax.persistence.FetchType.EAGER;
-import static javax.persistence.FetchType.LAZY;
 
 @Entity
 @Getter
